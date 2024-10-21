@@ -1,19 +1,21 @@
-from TPMPTAnalizer import TPMAnalizer
+from TPMPTAnalyzer import TPMAnalyzer
 from colorama import Fore
+import PTAConfigfile
 
 def main():
 
-    flags = ['PlayTime', 'hola']
-    analizer = TPMAnalizer("C:/Users/gonza/OneDrive/Escritorio/TestResults", flags, ".txt")
-    analizer.get_all_files_from_directory()
-    analizer.set_flags(flags)
-    #analizer.DebugPrintFiles()
-    actionLog : str = analizer.check_files_extension()
+    flags = PTAConfigfile.flags
+    file_extension = PTAConfigfile.file_extension
+    files_directory = PTAConfigfile.files_directory
+    output_dir = PTAConfigfile.output_dir
+
+    analyzer = TPMAnalyzer(files_directory, output_dir, flags, file_extension)
+
+    analyzer.get_all_files_from_directory()
+    actionLog : str = analyzer.check_files_extension()
     print(Fore.RED + actionLog)
-    actionLog = analizer.analize_all_files()
+    actionLog = analyzer.analyze_all_files()
     print(Fore.RED + actionLog)
-    # Reset terminal color
-    print(Fore.WHITE)
 
 if __name__ == '__main__':
     main()

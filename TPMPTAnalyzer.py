@@ -7,8 +7,9 @@ FILE_OPEN_ERROR = "[LOG] [OPEN FILE] FILE COULD NOT BE OPENED"
 ZERO_ERROR = "[LOG] [COMPUTE DATA] ZERO DIVISION ERROR"
 
 class TPMAnalyzer:
-    def __init__(self, directory, flags, extension) -> None:
+    def __init__(self, directory, output_dir: str, flags, extension) -> None:
         self.directory: str = directory
+        self.output_dir = output_dir
         self.filesList: list[str] = []
         self.flags: list[str] = flags
         self.extension: str = extension
@@ -91,7 +92,7 @@ class TPMAnalyzer:
         return "[LOG] [COMPUTE DATA] SUCCESS"
 
     def __generate_output_file(self) -> None:
-        file = open("/Users/goblanch/Desktop/TypingMonke/UTILS/TPM-PTAnalizer/TPM---PTAnalizer/TestFiles/PTOutput.txt", 'w')
+        file = open(self.output_dir, 'w')
         content: str = ""
         for i in range(len(self.flags)):
             content = content + self.flags[i] + ": " + str(self.data_result[i]) + "\n"
